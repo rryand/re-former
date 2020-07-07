@@ -25,7 +25,17 @@
 <% end %>
 -->
 
-<%= form_with model: @user do |f| %>
+<%= form_with model: @user, local: true do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> found.</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= f.label :username, "Username: " %>
   <%= f.text_field :username, placeholder: "Your user name here" %>
   <%= f.label :email, "E-mail: " %>
